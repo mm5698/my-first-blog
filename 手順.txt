@@ -1,0 +1,97 @@
+★仮想環境起動
+>cd C:\Users\miyasa_y\django
+>myvenv\Scripts\activate
+
+★プロジェクト作成
+>>>django-admin.exe startproject <project名>.
+
+※フォルダ構成
+django
+├── manage.py
+├── mysite　　　　　←作成project
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── myvenv
+│   └── ...
+└── requirements.txt
+
+【補足】
+  manage.py：サイトの管理に役立つスクリプト
+  settings.py：ウェブサイトの設定
+  urlresolver：Djangoがビューを見つける仕組み
+  urls.py：urlresolverで使用されるパターンのリスト
+
+★データベースをセットアップ
+python manage.py migrate
+
+★web serverを起動
+python manage.py runserver
+URL：http://127.0.0.1:8000/
+
+※終了
+ctrl + break
+
+★アプリケーション作成
+>>>python manage.py startapp <アプリ名>
+django
+├── blog　　　　　←作成アプリ
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── migrations
+│   │   └── __init__.py
+│   ├── models.py
+│   ├── tests.py
+│   └── views.py
+├── db.sqlite3
+├── manage.py
+├── mysite
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── myvenv
+│   └── ...
+└── requirements.txt
+
+※setting.pyに追加
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'blog.apps.BlogConfig',　　　　←追加(<アプリ名>.apps.BlogConfig)
+]
+
+★ポストモデルの作成
+models.pyを開き、修正(作成アプリ内のファイル)
+
+★データベースにモデルのためのテーブルを定義
+>>>python manage.py makemigrations <アプリ名>
+
+★作成ポストを追加、編集、削除
+admin.pyを修正(作成アプリフォルダ内)
+>>>python manage.py runserver
+URL： http://127.0.0.1:8000/admin/
+
+※データベース更新の都度以下を実施(セットアップ&テーブル定義)
+python manage.py migrate
+python manage.py makemigrations <アプリ名>
+
+★superuser （サイトの全てを管理するユーザー）を作成
+>>>python manage.py createsuperuser
+
+★Gitリポジトリを初期化
+git init
+git config --global user.name "miyasaka"
+git config --global user.email miyasaka@example.com
+
+※ファイル、ブランチ状態を確認
+git status
+
+
+
